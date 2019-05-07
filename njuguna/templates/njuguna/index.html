@@ -1,0 +1,61 @@
+{% extends 'njuguna/base.html' %}
+{% block title %}python members{% endblock %}
+{% block content %}
+    <div class="row">
+        {% if profiles %}
+            {% for prof in profiles %}
+              <div class="col-sm-3" >
+                 <div  class="card card-body my-1" style="background-color:{% if prof.is_male %} cornflowerblue; {% else %}:gray {% endif %}">
+                    <h4 class="text-center"
+                    style="white-space: nowrap;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                        max-width: 90px;
+                        border-bottom: 1px solid;
+font-family: Lobster;"
+
+                    >{{prof.name}}</h4>
+                    <hr>
+                    <img src="{{prof.photo.url}}"class="rounded-circle mx-auto img-fluid" alt=""style="width: 150px; height: 150px">
+                    <div class="caption">
+                        <h5 class="text-center">{{prof.occupation}}</h5>
+                        <h6 class="text-center" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 90px ;font-family: Dancing Script;">{{prof.slogin}}</h6>
+                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-{{ prof.id }}">
+                            <i class="fas fa-info"></i>
+                        </button>
+                        <a href="{% url 'njuguna:member_delete' prof.id %}" class="btn btn-danger btn-sm" style="float: right">
+                             <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                 </div>
+
+                <div class="modal fade" id="modal-{{prof.id}}"role="dialog">
+                    <div class="modal-dialog" >
+                     <div class="modal-content" >
+                     <div class="modal-header" >
+                         <h4 class="modal-title">{{prof.name}}</h4>
+                         <button type="button" class="close" data-dismiss="modal"></button>
+                     </div>
+                    <div class="modal-body">
+                        <p  style="font-family: Lobster;">
+                            {{ prof.name }}is a{{ prof.age }}21 year old lady{{ prof.nationality }}in jamaica{{ prof.primary }}studied at greensteads
+                            {{ prof.highschool }}later went to St.Barkitar{{ prof.email }}<a href="susanwairimu699@gmail.com"></a> {{ prof.email }}{{ prof.email }}{{ prof.occupation }}currently a lawyer
+                            {{ prof.slogin }}#the bullet{{ prof.residence }}lives in westlands{{ prof.campus }}studies in carlifornia{{ prof.course }}pursuing human rights
+                            {{ prof.hobby }}loves boxing.
+
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'njuguna:update_member' prof.id %}"class="btn btn-outline-primary btn-sm">
+                             <i class="fas fa-edit"></i>
+                         </a>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+ {% endblock %}
